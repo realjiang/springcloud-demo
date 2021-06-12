@@ -22,7 +22,8 @@ spring:
 eureka:
   client:
     service-url: # 注册中心地址
-      defaultZone: http://localhost:7001/eureka/
+      defaultZone: http://localhost:7001/eureka/ #[单机]
+#      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/ #[集群]
   instance: # 控台上的status描述信息
     instance-id: springboot-provider-dept8001 # 不写默认是localhost:${springc.application.name}:${server.port}
 
