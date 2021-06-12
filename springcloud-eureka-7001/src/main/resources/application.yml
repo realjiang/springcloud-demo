@@ -1,0 +1,12 @@
+server:
+  port: 7001
+
+# eureka配置
+eureka:
+  instance:
+    hostname: localhost # eureka服务端实例的名称
+  client:
+    register-with-eureka: false # 表示是否向服务器注册自己,服务器要设置为false
+    fetch-registry: false # 为false表示当前客户端为注册中心
+    service-url: # 监控页面的地址 访问:http://${eureka.instance.hostname}:${server.port} 可以查看控制台
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
