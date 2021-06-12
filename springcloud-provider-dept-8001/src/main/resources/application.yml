@@ -17,3 +17,16 @@ spring:
     url: jdbc:mysql://localhost:3306/DB01?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
     username: root
     password: rootroot
+
+# eureka配置,服务要注册到的地方
+eureka:
+  client:
+    service-url: # 注册中心地址
+      defaultZone: http://localhost:7001/eureka/
+  instance: # 控台上的status描述信息
+    instance-id: springboot-provider-dept8001 # 不写默认是localhost:${springc.application.name}:${server.port}
+
+# info配置,控台status的链接,展示的内容,如果不配置,点击链接报404
+info:
+  app.name: superj-springcloud
+  company.name: www.superj.com
