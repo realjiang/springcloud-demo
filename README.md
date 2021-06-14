@@ -135,4 +135,58 @@ springcloud-netfix 练习demo
                >     - Eureka不在从注册列表中移除因为长时间没收到心跳而应该过期的服务
                >     - Eureka仍然能够接受新服务的注册和查询请求，但是不会被同步到其他节点上 (即保证当前节点依然可用)
                >     - 当网络稳定时，当前实例新的注册信息会被同步到其他节点中
-             因此，Eureka可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像zookeeper那样使整个注册服务瘫痪    
+             因此，Eureka可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像zookeeper那样使整个注册服务瘫痪
+             
+            
+- Ribbon 负载均衡
+
+    > 负载均衡: 将用户的请求平摊的分配到多个服务器上,从而达到系统的HA(高可用)
+    
+    - 常见的负载均衡软件
+        - nginx
+        - lvs - linus虚拟服务器
+        - apache+tomcat
+        - ...
+        
+    - 负载均衡简单分类
+        - 集中式LB - 如nginx
+            
+            消费方和服务方之间使用独立的LB设施,由该设施通过某种策略转发请求
+            
+        - 进程式LB - 如Ribbon
+        
+            消费方集成LB逻辑,消费方从注册中心获取哪些地址可用,自己从中选择合适的地址
+            
+    - 集成Ribbon
+    
+        1. 消费方添加ribbon和eureka客户端依赖
+        2. 消费方开启@EnableEurekaClient
+        3. 消费方yml配置eureka
+        4. 消费方restTemplate配置
+        
+        `@Bean
+             @LoadBalanced //配置赋值均衡实现RestTemplate
+             public RestTemplate getRestTemplate() {
+                 return new RestTemplate();
+             }`
+        
+        5. 消费方修改提供方url
+        
+        `//通过ribbon负载均衡的时候,这里的url应该是一个变量,通过服务名来访问
+         //    private static final String REST_URL_PREFIX = "http://localhost:8001";
+             private static final String REST_URL_PREFIX = "http://SPRINGCLOUD-PROVIDER-DEPT";`
+         
+         6. 测试
+         
+         准备:三个数据库(数据一致),三个提供者(服务名一致,只是连接的库不同)
+         
+    - ribbon工作流程
+    
+    ![ribbon](https://gitee.com/superjishere/images/raw/master/img/20210614234030.png)
+    
+    - 自定义ribbon负载均衡算法
+    
+      默认是轮询         
+         
+        
+    
