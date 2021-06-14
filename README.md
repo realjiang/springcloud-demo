@@ -210,3 +210,30 @@ springcloud-netfix 练习demo
                  return new MyRandomRule();//自定义rule
              }
          }`
+
+- Feign 负载均衡
+
+    优雅简单地实现服务调用
+    
+    - 和ribbon区别
+        - ribbon - 通过微服务名字
+        - feign - 通过接口+注解,集成了ribbon,可读性高了,但因为加了一层,性能变低了      
+        
+    - 使用步骤
+    
+        1. 消费方和api添加feign依赖
+        
+        `<dependency>
+                     <groupId>org.springframework.cloud</groupId>
+                     <artifactId>spring-cloud-starter-feign</artifactId>
+                     <version>1.4.6.RELEASE</version>
+                 </dependency>`
+        2. api中编写接口
+        
+        `com.superj.springcloud.service.DeptClientService`
+        
+        3. 消费方启动类增加注解
+        
+        `@EnableFeignClients(basePackages = {"com.superj.springcloud"})`
+        
+        
