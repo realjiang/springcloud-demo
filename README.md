@@ -187,6 +187,26 @@ springcloud-netfix 练习demo
     - 自定义ribbon负载均衡算法
     
       默认是轮询         
-         
+      
+      - IRule 接口
+        - RoundRobinRule 轮询 (默认实现)
+        - RandomRule 随机
+        - AvailabilityFilterRule 会先过滤掉 跳闸/访问故障 的服务,对剩下的服务进行轮询
+        - RetryRule 先按照轮询获取服务,如果服务获取失败,则会在指定时间内重试
+        - ...   
+      - 自定义算法
+        1. 启动类增加注解,指定rule配置类
         
-    
+        `//在微服务启动时自动加载自定义的SuperjRule配置类,自定义的会覆盖原来的
+         @RibbonClient(name = "SPRINGCLOUD-PROVIDER-DEPT",configuration = SuperjRule.class)`  
+        
+        2. 编写自己的rule类,以及rule配置类
+        
+        `//注意:不能和启动类放同级目录,会被扫描到,被所有ribbon客户端共享,不能
+         @Configuration
+         public class SuperjRule {
+             @Bean
+             public IRule myrule() {
+                 return new MyRandomRule();//自定义rule
+             }
+         }`
