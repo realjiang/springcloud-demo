@@ -409,7 +409,7 @@ springcloud-netfix 练习demo
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
         需要创建服务端(连接config的git远程仓库)和客户端.
         
-        1. 服务端
+        1. 服务端 springcloud-config-server-3344
         
         定位资源的默认策略是克隆一个git仓库（在spring.cloud.config.server.git.uri），
         并使用它来初始化一个迷你SpringApplication。小应用程序的Environment用于枚举属性源并通过JSON端点发布。
@@ -431,4 +431,14 @@ springcloud-netfix 练习demo
         
         测试访问不存在的配置则不显示 如：http://localhost:3344/master/application-aaa.yml
         
-        2. 客户端                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        2. 客户端 springcloud-config-client-3355
+          
+          启动服务端Config_server_3344 再启动客户端ConfigClient
+          
+          访问：http://localhost:8201/config/             
+        
+        3. 案例
+        
+        
+       
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
