@@ -437,7 +437,7 @@ springcloud-netfix 练习demo
           
           访问：http://localhost:8201/config/             
         
-        3. 案例
+        3. 案例 springcloud-config-eureka-7001 、springcloud-config-dept-8001
         
         
        
