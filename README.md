@@ -236,4 +236,56 @@ springcloud-netfix 练习demo
         
         `@EnableFeignClients(basePackages = {"com.superj.springcloud"})`
         
+- Hystrix 断路器 弃车保帅~
+    
+    - 官网
+    
+    https://github.com/Netflix/Hystrix/wiki
+    
+    - 服务雪崩
         
+        ​ 多个微服务之间调用的时候，假设微服务A调用微服务B和微服务C，微服务B和微服务C又调用其他的微服务，
+         这就是所谓的“扇出”，如果扇出的链路上某个微服务的调用响应时间过长，或者不可用，对微服务A的调用就
+         会占用越来越多的系统资源，进而引起系统崩溃，所谓的“雪崩效应”。
+
+    - 什么是Hystrix?
+    
+        用于处理分布式系统的延迟和容错,保证一个依赖出问题不会导致整体服务失败,避免级联故障,以提高分布式系统的弹性.
+        
+        "断路器"本身是一种开关装置，当某个服务单元发生故障之后，通过断路器的故障监控 (类似熔断保险丝) ，向调用方返回一个服务预期的，
+        可处理的备选响应 (FallBack) ，而不是长时间的等待或者抛出调用方法无法处理的异常，这样就可以保证了服务调用方的线程不会被长时间
+        不必要的占用，从而避免了故障在分布式系统中的蔓延，乃至雪崩。
+        
+    - Hystrix能做什么?
+    
+        - 服务降级
+        - 服务熔断
+        - 服务限流
+        - 接近实时的监控
+        - …        
+    
+    - 服务熔断
+    
+        - 导入依赖
+        
+        `<dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-hystrix</artifactId>
+             <version>1.4.6.RELEASE</version>
+         </dependency>`
+        
+        - 配置yml
+          
+        - 编写服务接口及熔断机制
+          
+          `@HystrixCommand(fallbackMethod = "hystrixGet")`
+           如果根据id查询出现异常,则走hystrixGet这段备选代码
+            
+        - 启动类增加注解启动hystrix
+        
+          `@EnableCircuitBreaker // 添加对熔断的支持注解`
+                
+
+
+
+    
