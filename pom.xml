@@ -19,6 +19,7 @@
         <module>springcloud-eureka-7003</module>
         <module>springcloud-provider-dept-hystrix-8001</module>
         <module>springcloud-consumer-hystrix-dashboard</module>
+        <module>springcloud-zuul-9527</module>
     </modules>
 
     <!--打包方式  pom-->
