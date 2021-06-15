@@ -354,8 +354,18 @@ springcloud-netfix 练习demo
           熔断：依赖的下游服务故障触发熔断，避免引发本系统崩溃；系统自动执行和恢复      
             
         - Dashboard 流监控
-          
-    
+          - 新建模块,编写监控服务
+              - 添加依赖
+              - 配置yml
+              - 编写启动类,注解开启Dashboard
+          - 提供者模块配置监控
+              - 需要actuator监控依赖 + Hystrix依赖
+              - 启动类注入Servlet流
+          - 监控页面访问地址: http://localhost:9001/hystrix  
+            ![dashboard页面](https://gitee.com/superjishere/images/raw/master/img/20210615154652.png)
+
+            ![监控信息](https://gitee.com/superjishere/images/raw/master/img/20210615154924.png)
+
 - Zuul 路由网关
 
 - Spring Cloud Config 分布式配置
