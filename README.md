@@ -384,6 +384,51 @@ springcloud-netfix 练习demo
         https://www.springcloud.cc/spring-cloud-greenwich.html#_router_and_filter_zuul
         
 - Spring Cloud Config 分布式配置
-
-
-    
+    - 什么是Spring Cloud Config?
+    >  spring cloud config 为微服务架构中的微服务提供集中化的外部支持，配置服务器为各个不同微服务应用的所有环节提供了一个中心化的外部配置。
+       spring cloud config 分为服务端和客户端两部分。
+       服务端也称为 分布式配置中心，它是一个独立的微服务应用，用来连接配置服务器并为客户端提供获取配置信息，加密，解密信息等访问接口。
+       客户端则是通过指定的配置中心来管理应用资源，以及与业务相关的配置内容，并在启动的时候从配置中心获取和加载配置信息。配置服务器默认
+       采用git来存储配置信息，这样就有助于对环境配置进行版本管理。并且可用通过git客户端工具来方便的管理和访问配置内容
+      
+    - spring cloud config 分布式配置中心能干嘛？
+      
+    >  集中式管理配置文件
+       不同环境，不同配置，动态化的配置更新，分环境部署，比如 /dev /test /prod /beta /release
+       运行期间动态调整配置，不再需要在每个服务部署的机器上编写配置文件，服务会向配置中心统一拉取配置自己的信息
+       当配置发生变动时，服务不需要重启，即可感知到配置的变化，并应用新的配置
+       将配置信息以REST接口的形式暴露
+      
+    - spring cloud config 分布式配置中心与GitHub整合
+      
+    >  ​ 由于spring cloud config 默认使用git来存储配置文件 (也有其他方式，比如自持SVN 和本地文件)，
+        但是最推荐的还是git ，而且使用的是 http / https 访问的形式。
+    ![spring_cloud_config](https://gitee.com/superjishere/images/raw/master/img/20210615175609.png)  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+        - 基础使用案例
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        需要创建服务端(连接config的git远程仓库)和客户端.
+        
+        1. 服务端
+        
+        定位资源的默认策略是克隆一个git仓库（在spring.cloud.config.server.git.uri），
+        并使用它来初始化一个迷你SpringApplication。小应用程序的Environment用于枚举属性源并通过JSON端点发布。
+        
+        HTTP服务具有以下格式的资源：
+        
+        `/{application}/{profile}[/{label}]
+         /{application}-{profile}.yml
+         /{label}/{application}-{profile}.yml
+         /{application}-{profile}.properties
+         /{label}/{application}-{profile}.properties`
+        
+        其中“应用程序”作为SpringApplication中的spring.config.name注入（即常规的Spring Boot应用程序中通常是“应用程序”），
+        “配置文件”是活动配置文件（或逗号分隔列表的属性），“label”是可选的git分支（默认为“master”）。
+        
+        测试访问 http://localhost:3344/application-dev.yml
+        
+        测试访问 http://localhost:3344/application/test/master
+        
+        测试访问不存在的配置则不显示 如：http://localhost:3344/master/application-aaa.yml
+        
+        2. 客户端                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
